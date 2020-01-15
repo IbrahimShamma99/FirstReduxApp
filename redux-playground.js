@@ -5,7 +5,7 @@ const intialState = {
     counter: 0
 };
 
-// Reducer
+//SECTION Reducer
 const rootReducer = (state = intialState, action) => {
     if (action.type === "INC_COUNTER") {
         return {
@@ -25,13 +25,15 @@ const rootReducer = (state = intialState, action) => {
 };
 
 
-// Store 
+//SECTION Store 
 const Store = createStore(rootReducer);
-console.log(Store.getState());
 
-// Dispatch action
+//SECTION subscriptions
+
+Store.subscribe(() => {
+    console.log("[Subscription]", Store.getState());
+});
+
+//SECTION Dispatch action
 Store.dispatch({ type: "INC_COUNTER" });
 Store.dispatch({ type: "ADD_COUNTER", value: 5 });
-console.log(Store.getState());
-
-// subscriptions
