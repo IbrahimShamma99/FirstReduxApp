@@ -1,8 +1,9 @@
-import { add, sub, dec, inc } from '../constants/constants';
+import { add, sub, dec, inc, store, remove } from '../constants/constants';
 
 const intialState = {
     counter: 0,
-}
+    results: []
+};
 
 
 const reducer = (state = intialState, action) => {
@@ -29,6 +30,18 @@ const reducer = (state = intialState, action) => {
                 ...state,
                 counter: state.counter - action.value
             };
+        case store:
+            return {
+                ...state,
+                results: state.results.push(state.counter)
+            }
+
+        case remove:
+            return {
+                ...state,
+                results: state.results.push(state.counter)
+            }
+
         default:
             return {
                 ...state

@@ -4,7 +4,7 @@ import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
 import { connect } from 'react-redux';
 
-import { add, sub, dec, inc } from '../../constants/constants';
+import { add, sub, dec, inc ,store, remove  } from '../../constants/constants';
 
 class Counter extends Component {
   render() {
@@ -27,6 +27,15 @@ class Counter extends Component {
           label="Subtract 5"
           clicked={this.props.onSUBCounter}
         />{' '}
+        <hr/>
+        <button onClick>Store Results</button>
+        <ul>
+          {this.props.results !== undefined?
+          this.props.results.map((element)=>{
+            return <li>{element}</li>
+          }):null           
+          }
+        </ul>
       </div>
     );
   }
@@ -43,8 +52,9 @@ const mapDispatchToProps = dispatch =>{
       onIncrementCounter:() => dispatch({type:inc}),
       onDecrementCounter:() => dispatch({type:dec}),
       onADDCounter:() => dispatch({type:add,value:5}),
-      onSUBCounter:() => dispatch({type:sub,value:5})
-
+      onSUBCounter:() => dispatch({type:sub,value:5}),
+      onStoreResult:() => dispatch({type:store}),
+      onDeleteResult:() => dispatch({type:remove})
 
     }
 };
