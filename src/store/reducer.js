@@ -1,3 +1,5 @@
+import { add, sub, dec, inc } from '../constants/constants';
+
 const intialState = {
     counter: 0,
 }
@@ -6,30 +8,33 @@ const intialState = {
 const reducer = (state = intialState, action) => {
 
     switch (action.type) {
-        case "INCREMENT":
+        case inc:
             return {
                 ...state,
                 counter: state.counter + 1
             }
-        case "DECREMENT":
+        case dec:
             return {
                 ...state,
                 counter: state.counter - 1
             };
 
-        case "ADD":
+        case add:
             return {
                 ...state,
                 counter: state.counter + action.value
             };
-        case "SUB":
+        case sub:
             return {
                 ...state,
                 counter: state.counter - action.value
             };
-    }
+        default:
+            return {
+                ...state
+            }
 
-    return state;
+    }
 };
 
 

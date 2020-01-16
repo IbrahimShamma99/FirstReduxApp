@@ -4,7 +4,7 @@ import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
 import { connect } from 'react-redux';
 
-// import {} from '../../store/reducer';
+import { add, sub, dec, inc } from '../../constants/constants';
 
 class Counter extends Component {
   render() {
@@ -40,10 +40,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch =>{
     return {
-      onIncrementCounter:() => dispatch({type:"INCREMENT"}),
-      onDecrementCounter:() => dispatch({type:"DECREMENT"}),
-      onADDCounter:() => dispatch({type:"ADD",value:5}),
-      onSUBCounter:() => dispatch({type:"SUB",value:5})
+      onIncrementCounter:() => dispatch({type:inc}),
+      onDecrementCounter:() => dispatch({type:dec}),
+      onADDCounter:() => dispatch({type:add,value:5}),
+      onSUBCounter:() => dispatch({type:sub,value:5})
 
 
     }
