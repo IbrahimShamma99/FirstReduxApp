@@ -7,32 +7,6 @@ import { connect } from 'react-redux';
 // import {} from '../../store/reducer';
 
 class Counter extends Component {
-
-  counterChangedHandler = (action, value) => {
-    switch (action) {
-      case 'inc':
-        this.setState((prevState) => {
-          return { counter: prevState.counter + 1 };
-        });
-        break;
-      case 'dec':
-        this.setState((prevState) => {
-          return { counter: prevState.counter - 1 };
-        });
-        break;
-      case 'add':
-        this.setState((prevState) => {
-          return { counter: prevState.counter + value };
-        });
-        break;
-      case 'sub':
-        this.setState((prevState) => {
-          return { counter: prevState.counter - value };
-        });
-        break;
-    }
-  };
-
   render() {
     return (
       <div>
