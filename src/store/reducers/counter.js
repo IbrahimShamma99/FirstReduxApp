@@ -1,41 +1,32 @@
-import { add, sub, dec, inc } from '../../constants/constants';
+import * as actionTypes from '../actions/actions';
 
-const intialState = {
+const initialState = {
     counter: 0
 };
 
-
-const Counterreducer = (state = intialState, action) => {
-
-    switch (action.type) {
-        case inc:
-            return {
-                ...state,
-                counter: state.counter + 1
-            }
-        case dec:
+const reducer = ( state = initialState, action ) => {
+    switch ( action.type ) {
+        case actionTypes.INCREMENT:
+            const newState = Object.assign({}, state);
+            newState.counter = state.counter + 1;
+            return newState;
+        case actionTypes.DECREMENT:
             return {
                 ...state,
                 counter: state.counter - 1
-            };
-
-        case add:
-            return {
-                ...state,
-                counter: state.counter + action.value
-            };
-        case sub:
-            return {
-                ...state,
-                counter: state.counter - action.value
-            };
-        default:
-            return {
-                ...state
             }
-
+        case actionTypes.ADD:
+            return {
+                ...state,
+                counter: state.counter + action.val
+            }
+        case actionTypes.SUBTRACT:
+            return {
+                ...state,
+                counter: state.counter - action.val
+            }
     }
+    return state;
 };
 
-
-export default Counterreducer;
+export default reducer;

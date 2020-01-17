@@ -1,62 +1,48 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../store/actions/actions';
 
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
-import { connect } from 'react-redux';
-
-import { add, sub, dec, inc ,store,remove} from '../../constants/constants';
 
 class Counter extends Component {
-  render() {
-    return (
-      <div>
-        <CounterOutput value={this.props.ctr} />{' '}
-        <CounterControl
-          label="Increment"
-          clicked={this.props.onIncrementCounter}
-        />{' '}
-        <CounterControl
-          label="Decrement"
-          clicked={this.props.onDecrementCounter}
-        />{' '}
-        <CounterControl
-          label="Add 5"
-          clicked={this.props.onADDCounter}
-        />{' '}
-        <CounterControl
-          label="Subtract 5"
-          clicked={this.props.onSUBCounter}
-        />{' '}
-        <hr/>
-        <button onClick={()=>this.props.onStoreResult(this.props.ctr)}>Store Results</button>
-        <ul>
-          { this.props.results !== undefined ?
-            this.props.results.map((EL,id)=>{
-            return <li onClick={(id)=>this.onDeleteResult(id)}>{EL.value}</li>
-            }):null
-          }
-        </ul>
-      </div>
-    );
-  }
-};
+    render () {
+        return (
+            <div>
+                <CounterOutput value={this.props.ctr} />
+                <CounterControl label="Increment" clicked={this.props.onIncrementCounter} />
+                <CounterControl label="Decrement" clicked={this.props.onDecrementCounter}  />
+                <CounterControl label="Add 10" clicked={this.props.onAddCounter}  />
+                <CounterControl label="Subtract 15" clicked={this.props.onSubtractCounter}  />
+                <hr />
+                <button onClick={() => this.props.onStoreResult(this.props.ctr)}>Store Result</button>
+                <ul>
+                    {this.props.storedResults.map(strResult => (
+                        <li key={strResult.id} onClick={() => this.props.onDeleteResult(strResult.id)}>{strResult.value}</li>
+                    ))}
+                </ul>
+            </div>
+        );
+    }
+}
 
 const mapStateToProps = state => {
     return {
-      ctr:state.ctr.counter ,
-      results:state.res.results
-    };
-};
 
-const mapDispatchToProps = dispatch =>{
-    return {
-      onIncrementCounter:() => dispatch({type:inc}),
-      onDecrementCounter:() => dispatch({type:dec}),
-      onADDCounter:() => dispatch({type:add,value:5}),
-      onSUBCounter:() => dispatch({type:sub,value:5}),
-      onStoreResult:(countVal) => dispatch({type:store,value:countVal}),
-      onDeleteResult:(id) => dispatch({ResultElID:id,type:remove,})
-
+        ctr: state.ctr.counter,
+        storedResults: state.res.results
     }
 };
-export default connect(mapStateToProps,mapDispatchToProps)(Counter);
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onIncrementCounter: () => dispatch(actionCreators.increment()),
+        onDecrementCounter: () => dispatch(actionCreators.decrement()),
+        onAddCounter: () => dispatch(actionCreators.add(10)),
+        onSubtractCounter: () => dispatch(actionCreators.subtract(15)),
+        onStoreResult: (result) => dispatch(actionCreators.storeResult(result)),
+        onDeleteResult: (id) => dispatch(actionCreators.deleteResult(id))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
